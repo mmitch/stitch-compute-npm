@@ -12,6 +12,38 @@ describe('StitchCompute', () => {
     });
   });
 
+  describe('adding stitches', () => {
+    it('should calculate from 10 to 11', () => {
+      expect(new StitchCompute().adjust(10, 11)).to.equal('K5 A1 K5');
+    });
+    it('should use repetition group from 10 to 20', () => {
+      expect(new StitchCompute().adjust(10, 20)).to.equal('10x ( K1 A1 )');
+    });
+    it('should calculate from 70 to 112', () => {
+      expect(new StitchCompute().adjust(70, 112)).to.equal('14x ( K1 A1 K1 A1 K2 A1 K1 )');
+    });
+  });
+
+  describe('combining stitches', () => {
+    it('should calculate from 53 to 48', () => {
+      expect(new StitchCompute().adjust(10, 11)).to.equal('K5 A1 K5');
+    });
+    it('should use repetition group from 30 25', () => {
+      expect(new StitchCompute().adjust(10, 20)).to.equal('10x ( K1 A1 )');
+    });
+    it('should calculate from 8 to 5', () => {
+      expect(new StitchCompute().adjust(8, 5)).to.equal('K1 C2 K1 C1');
+    });
+    it('should calculate from 112 to 70', () => {
+      expect(new StitchCompute().adjust(112, 70)).to.equal('14x ( K1 C2 K1 C1 )');
+    });
+    it('should calculate from 113 to 70', () => {
+      expect(new StitchCompute().adjust(113, 70)).to.equal(
+        'K1 C2 K1 C2 K1 C1 K1 C2 K1 C1 K1 C2 K1 C2 K1 C1 K1 C2 K1 C1 K1 C2 K1 C2 K1 C1 K1 C2 K1 C1 K1 C2 K1 C2 K1 C1 K1 C2 K1 C1 K1 C2 K1 C2 K1 C1 K1 C2 K1 C1 K1 C2 K1 C1'
+      );
+    });
+  });
+
   describe('sanity checks', () => {
     it('should not allow more than double the original stitches', () => {
       expect(() => {
