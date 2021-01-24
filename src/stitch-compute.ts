@@ -75,14 +75,14 @@ export class StitchCompute {
       const diff = oldpos - (newpos / to) * from;
 
       if (diff < 0 && shrink) {
-        actions.push({ type: 'C', count: 1 });
+        actions.push(new Action(Type.Combine));
         oldpos += 2;
         newpos++;
       } else if (diff > 0 && grow) {
-        actions.push({ type: 'A', count: 1 });
+        actions.push(new Action(Type.Add));
         newpos++;
       } else {
-        actions.push({ type: 'K', count: 1 });
+        actions.push(new Action(Type.Keep));
         oldpos++;
         newpos++;
       }
@@ -106,7 +106,7 @@ export class StitchCompute {
   }
 
   private combineActions(actions: Action[]): void {
-    let lastType = '';
+    let lastType: Type | null = null;
     let pos = 0;
     while (pos < actions.length) {
       const current = actions[pos];
@@ -124,14 +124,15 @@ export class StitchCompute {
     return actions.map((action) => {
       const count = action.count;
       const type = action.type;
-      if (type === 'K') {
-        return this.keepFormatter.format(count);
-      } else if (type === 'C') {
-        return this.combineFormatter.format(count);
-      } else if (type === 'A') {
-        return this.addFormatter.format(count);
-      } else {
-        throw new Error(`unknown action type ${type}`);
+      switch (type) {
+        case Type.Keep:
+          return this.keepFormatter.format(count);
+
+        case Type.Combine:
+          return this.combineFormatter.format(count);
+
+        case Type.Add:
+          return this.addFormatter.format(count);
       }
     });
   }
@@ -141,7 +142,16 @@ export class StitchCompute {
   }
 }
 
+enum Type {
+  Keep,
+  Combine,
+  Add
+}
+
 class Action {
-  type = '';
-  count = 0;
+  readonly type: Type;
+  count = 1;
+  constructor(type: Type) {
+    this.type = type;
+  }
 }
