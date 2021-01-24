@@ -3,19 +3,17 @@ import { format } from 'util';
 export class GroupFormatter {
   private order: ParameterOrder;
 
-  constructor(private template: string, private delimiter: string) {
+  constructor(private template: string) {
     this.check(template);
     this.order = this.determineOrder(template);
   }
 
-  format(value: number, elements: string[]): string {
-    const joinedElements = elements.join(this.delimiter);
-
+  format(repetitions: number, content: string): string {
     switch (this.order) {
       case ParameterOrder.NumberThenString:
-        return format(this.template, value, joinedElements);
+        return format(this.template, repetitions, content);
       case ParameterOrder.StringThenNumber:
-        return format(this.template, joinedElements, value);
+        return format(this.template, content, repetitions);
     }
   }
 
