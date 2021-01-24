@@ -13,11 +13,20 @@ describe('StitchCompute', () => {
         });
     });
 
+    describe('sanity checks', () => {
+        it('should not allow more than double the original stitches', () => {
+            expect(() => { new StitchCompute().adjust(20, 41)}).to.throw(Error, /too many.*20 can grow to 40 max/);
+        });
+        it('should not allow fewer than half the original stitches', () => {
+            expect(() => { new StitchCompute().adjust(29, 14)}).to.throw(Error, /too few.*29 can shrink to 15 min/);
+        });
+    })
+
     describe('internationalization', () => {
         it('should use alternative format strings', () => {
             const computer = new StitchCompute();
             computer.setFormatters(new NumberFormatter('[keep %d]'));
             expect(computer.adjust(12, 12)).to.equal('[keep 12]');
-        });
+        })
     })
 })

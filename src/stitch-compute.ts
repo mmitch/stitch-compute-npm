@@ -1,5 +1,4 @@
-import { format } from "util";
-import { NumberFormatter } from "./number-formatter";
+import { NumberFormatter } from "./number-formatter"
 
 export class StitchCompute {
     private keepFormatter = new NumberFormatter('K%d');
@@ -8,6 +7,15 @@ export class StitchCompute {
 
         if (from === to) {
             return this.keep(from);
+        }
+
+        const max = 2*from;
+        const min = Math.floor((from + 1) / 2);
+        if (to > max) {
+            throw new Error(`too many stitches to add - ${from} can grow to ${max} max`)
+        }
+        if (to < min) {
+            throw new Error(`too few stitches to keep - ${from} can shrink to ${min} min`)
         }
 
         return '';
