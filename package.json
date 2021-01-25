@@ -2,7 +2,12 @@
   "name": "stitch-compute-npm",
   "version": "1.0.0",
   "description": "compute stitch adjustments for knitting",
-  "keywords": ["stitching", "knitting", "stitch", "knit"],
+  "keywords": [
+    "stitching",
+    "knitting",
+    "stitch",
+    "knit"
+  ],
   "author": "Christian Garbs <mitch@cgarbs.de>",
   "license": "GPL-3.0-or-later",
   "homepage": "https://github.com/mmitch/stitch-compute-npm#readme",
