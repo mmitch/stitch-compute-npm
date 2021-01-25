@@ -30,7 +30,7 @@ export class StitchCompute {
   private groupFormatter = new GroupFormatter('%dx ( %s )');
   private listFormatter = new ListFormatter(' ');
 
-  adjust(from: number, to: number): string {
+  adjust_evenly(from: number, to: number): string {
     if (from === to) {
       return this.keep(from);
     }
@@ -46,7 +46,7 @@ export class StitchCompute {
 
     const repetitions = greatestCommonDivisor(from, to);
     if (repetitions > 1) {
-      const group = this.adjust(from / repetitions, to / repetitions);
+      const group = this.adjust_evenly(from / repetitions, to / repetitions);
       return this.groupFormatter.format(repetitions, group);
     } else {
       const actions = this.calculateActions(to, from);
