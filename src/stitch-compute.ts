@@ -92,18 +92,33 @@ export class StitchCompute {
   }
 
   private normalizeActions(actions: Action[]): void {
-    if (actions.length < 3) {
-      return;
-    }
-    const first = actions[0];
-    const last = actions[actions.length - 1];
-    if (first.type !== last.type) {
+    if (actions.length < 2) {
       return;
     }
 
+    const first = actions[0];
+    const last = actions[actions.length - 1];
+
+    if (first.type === last.type) {
+      this.equalizeActionCounts(first, last);
+    } else if (first.count === 1 && last.count > 1) {
+      this.moveHalfOfLastActionToFront(actions);
+    }
+  }
+
+  private equalizeActionCounts(first: Action, last: Action) {
     const diff = Math.floor((first.count - last.count) / 2);
     first.count -= diff;
     last.count += diff;
+  }
+
+  private moveHalfOfLastActionToFront(actions: Action[]) {
+    const last = actions[actions.length - 1];
+    const toMove = Math.floor(last.count / 2);
+    const extraAction = { ...last };
+    last.count -= toMove;
+    extraAction.count = toMove;
+    actions.unshift(extraAction);
   }
 
   private combineActions(actions: Action[]): void {

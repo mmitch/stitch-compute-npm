@@ -65,6 +65,12 @@ describe('StitchCompute', () => {
     it('should work for all combines', () => {
       expect(new StitchCompute().adjust(2, 1)).to.equal('C1');
     });
+    it('should normalize correctly from 9 to 5', () => {
+      expect(new StitchCompute().adjust(9, 5)).to.equal('C2 K1 C2');
+    });
+    it('should normalize correctly from 35 to 18', () => {
+      expect(new StitchCompute().adjust(35, 18)).to.equal('C8 K1 C9');
+    });
   });
 
   describe('sanity checks', () => {
