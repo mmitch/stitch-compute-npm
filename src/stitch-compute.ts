@@ -69,12 +69,13 @@ export class StitchCompute {
     const actions: Action[] = [];
     const grow = to > from;
     const shrink = to < from;
+    const allshrink = to * 2 == from;
     let oldpos = 0;
     let newpos = 0.0;
     while (oldpos < from || newpos < to) {
       const diff = oldpos - (newpos / to) * from;
 
-      if (diff < 0 && shrink) {
+      if (allshrink || (diff < 0 && shrink)) {
         actions.push(new Action(Type.Combine));
         oldpos += 2;
         newpos++;

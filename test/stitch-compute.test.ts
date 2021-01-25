@@ -62,6 +62,9 @@ describe('StitchCompute', () => {
         'K1 C2 K1 C2 K1 C1 K1 C2 K1 C1 K1 C2 K1 C2 K1 C1 K1 C2 K1 C1 K1 C2 K1 C2 K1 C1 K1 C2 K1 C1 K1 C2 K1 C2 K1 C1 K1 C2 K1 C1 K1 C2 K1 C2 K1 C1 K1 C2 K1 C1 K1 C2 K1 C1'
       );
     });
+    it('should work for all combines', () => {
+      expect(new StitchCompute().adjust(2, 1)).to.equal('C1');
+    });
   });
 
   describe('sanity checks', () => {
