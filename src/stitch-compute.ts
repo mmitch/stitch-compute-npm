@@ -46,23 +46,19 @@ export class StitchCompute {
 
     const repetitions = greatestCommonDivisor(from, to);
     if (repetitions > 1) {
-      const group = this.adjust_evenly(from / repetitions, to / repetitions);
+      const group = this.adjust(from / repetitions, to / repetitions);
       return this.groupFormatter.format(repetitions, group);
     } else {
-      return this.adjust_evenly(from, to);
+      const actions = this.calculateActions(to, from);
+      this.combineActions(actions);
+      this.normalizeActions(actions);
+      const elements = this.formatActions(actions);
+      return this.listFormatter.format(elements);
     }
   }
 
   setFormatters(keep: NumberFormatter): void {
     this.keepFormatter = keep;
-  }
-
-  private adjust_evenly(from: number, to: number): string {
-    const actions = this.calculateActions(to, from);
-    this.combineActions(actions);
-    this.normalizeActions(actions);
-    const elements = this.formatActions(actions);
-    return this.listFormatter.format(elements);
   }
 
   private calculateActions(to: number, from: number): Action[] {
