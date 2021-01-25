@@ -15,7 +15,11 @@
     "uri": "https://github.com/mmitch/stitch-compute-npm.git"
   },
   "bugs": "https://github.com/mmitch/stitch-compute-npm/issues",
-  "main": "index.js",
+  "main": "lib/stitch-compute.js",
+  "types": "lib/stitch-compute.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.2.0",
@@ -40,7 +44,8 @@
     "build": "tsc --build",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "prepublish": "tsc"
   },
   "nyc": {
     "extension": [
