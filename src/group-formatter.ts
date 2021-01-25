@@ -18,23 +18,17 @@
  * along with stitch-compute.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { format } from 'util';
+import { StringReplacer } from './string-replacer';
 
 export class GroupFormatter {
-  private order: ParameterOrder;
+  private readonly replacer = new StringReplacer();
 
   constructor(private template: string) {
     this.check(template);
-    this.order = this.determineOrder(template);
   }
 
   format(repetitions: number, content: string): string {
-    switch (this.order) {
-      case ParameterOrder.NumberThenString:
-        return format(this.template, repetitions, content);
-      case ParameterOrder.StringThenNumber:
-        return format(this.template, content, repetitions);
-    }
+    return this.replacer.format(this.template, repetitions, content);
   }
 
   private check(format: string) {
@@ -48,16 +42,4 @@ export class GroupFormatter {
       throw new Error('formatter does not contain exactly one %s placeholder, but ' + stringCount);
     }
   }
-
-  private determineOrder(format: string): ParameterOrder {
-    if (format.indexOf('%d') < format.indexOf('%s')) {
-      return ParameterOrder.NumberThenString;
-    }
-    return ParameterOrder.StringThenNumber;
-  }
-}
-
-enum ParameterOrder {
-  NumberThenString,
-  StringThenNumber
 }

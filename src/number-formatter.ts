@@ -18,15 +18,17 @@
  * along with stitch-compute.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { format } from 'util';
+import { StringReplacer } from './string-replacer';
 
 export class NumberFormatter {
+  private readonly replacer = new StringReplacer();
+
   constructor(private template: string) {
     this.check(template);
   }
 
   format(value: number): string {
-    return format(this.template, value);
+    return this.replacer.format(this.template, value);
   }
 
   private check(format: string) {
