@@ -21,18 +21,18 @@ import { StitchCompute } from 'stitch-compute';
 
 Main class containing all public functions.
 
-#### adjust_evenly( from, to )
+#### adjustEvenly( from, to )
 
 Computes evenly distributed keeps (`K`), additions (`A`) and
 combinations (`C`) to grow or shrink your knitting row
 from `from` stitches to `to` stitches.
 
 ```typescript
-const result = new StitchCompute().adjust_evenly(10, 11);
+const result = new StitchCompute().adjustEvenly(10, 11);
 // returns "K5 A1 K5"
 // meaning: keep 5 stitches, add 1 extra stitch, keep 5 stitches
 
-const result = new StitchCompute().adjust_evenly(30, 25);
+const result = new StitchCompute().adjustEvenly(30, 25);
 // returns "5x ( K2 C1 K2 )"
 // meaning: keep 2 stitches, combine 2 stitches into 1, keep 2 stitches.
 //          repeat all of this 5 times
@@ -57,7 +57,7 @@ const formatters: FormatterSet = {
   listSeparator: ' '
 };
 stitchComputer.setFormatters(formatters);
-// stitchComputer.adjust_evenly() will now use the new formatters
+// stitchComputer.adjustEvenly() will now use the new formatters
 ```
 
 Notes:
