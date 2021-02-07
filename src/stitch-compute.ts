@@ -24,8 +24,6 @@ import { GroupFormatter } from './group-formatter';
 import { ListFormatter } from './list-formatter';
 import { NumberFormatter } from './number-formatter';
 
-export { FormatterSet } from './formatter-set';
-
 export class StitchCompute {
   private keepFormatter = new NumberFormatter('K%d');
   private addFormatter = new NumberFormatter('A%d');
