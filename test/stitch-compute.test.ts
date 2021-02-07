@@ -20,7 +20,7 @@
 
 import { StitchCompute } from '../src/stitch-compute';
 import { expect } from 'chai';
-import { NumberFormatter } from '../src/number-formatter';
+import { FormatterSet } from '../src/formatter-set';
 
 describe('StitchCompute', () => {
   describe('same number of stitches', () => {
@@ -89,8 +89,31 @@ describe('StitchCompute', () => {
   describe('internationalization', () => {
     it('should use alternative format strings', () => {
       const computer = new StitchCompute();
-      computer.setFormatters(new NumberFormatter('[keep %d]'));
-      expect(computer.adjust_evenly(12, 12)).to.equal('[keep 12]');
+      const formatters: FormatterSet = {
+        keepStitches: '[keep %d]',
+        addStitches: '[add %d]',
+        combineStitches: '[combine %d]',
+        groupInstructions: '{{ %s }} times %d',
+        listSeparator: ', '
+      };
+
+      computer.setFormatters(formatters);
+
+      expect(computer.adjust_evenly(12, 13)).to.equal('[keep 6], [add 1], [keep 6]');
+      expect(computer.adjust_evenly(14, 7)).to.equal('{{ [combine 1] }} times 7');
+    });
+    it('should not change undefined format strings', () => {
+      const computer = new StitchCompute();
+      const formatters: FormatterSet = {
+        keepStitches: '[keep %d]',
+        combineStitches: '[combine %d]',
+        groupInstructions: '{{ %s }} times %d'
+      } as FormatterSet;
+
+      computer.setFormatters(formatters);
+
+      expect(computer.adjust_evenly(12, 13)).to.equal('[keep 6] A1 [keep 6]');
+      expect(computer.adjust_evenly(14, 7)).to.equal('{{ [combine 1] }} times 7');
     });
   });
 });

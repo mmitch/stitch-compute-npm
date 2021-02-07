@@ -28,11 +28,11 @@ combinations (`C`) to grow or shrink your knitting row
 from `from` stitches to `to` stitches.
 
 ```typescript
-const result = new StitchCompute().adjustEvenly(10, 11);
+const result = new StitchCompute().adjust_evenly(10, 11);
 // returns "K5 A1 K5"
 // meaning: keep 5 stitches, add 1 extra stitch, keep 5 stitches
 
-const result = new StitchCompute().adjustEvenly(30, 25);
+const result = new StitchCompute().adjust_evenly(30, 25);
 // returns "5x ( K2 C1 K2 )"
 // meaning: keep 2 stitches, combine 2 stitches into 1, keep 2 stitches.
 //          repeat all of this 5 times
@@ -41,6 +41,28 @@ const result = new StitchCompute().adjustEvenly(30, 25);
 Notes:
 
 - `to` must be at least half of `from` and at most twice `from`
+
+#### setFormatters( formatters )
+
+Changes the output texts. `%d` will be replaced by a number, `%s` by a string. To the defaults can be set like this:
+
+```typescript
+import { FormatterSet } from 'stitch-compute';
+const stitchComputer = new StitchCompute();
+const formatters: FormatterSet = {
+  keepStitches: 'K%d',
+  addStitches: 'A%d',
+  combineStiches: 'C%d',
+  groupInstructions: '%dx ( %s )',
+  listSeparator: ' '
+};
+stitchComputer.setFormatters(formatters);
+// stitchComputer.adjust_evenly() will now use the new formatters
+```
+
+Notes:
+
+- errors are thrown if the format strings don't include the required placeholders (see the defaults for what is required where)
 
 ## Tests
 

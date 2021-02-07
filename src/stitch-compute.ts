@@ -18,6 +18,7 @@
  * along with stitch-compute.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { FormatterSet } from './formatter-set';
 import { greatestCommonDivisor } from './greatest-common-divisor';
 import { GroupFormatter } from './group-formatter';
 import { ListFormatter } from './list-formatter';
@@ -57,8 +58,26 @@ export class StitchCompute {
     }
   }
 
-  setFormatters(keep: NumberFormatter): void {
-    this.keepFormatter = keep;
+  setFormatters(formatters: FormatterSet): void {
+    if (this.isSet(formatters.keepStitches)) {
+      this.keepFormatter = new NumberFormatter(formatters.keepStitches);
+    }
+    if (this.isSet(formatters.addStitches)) {
+      this.addFormatter = new NumberFormatter(formatters.addStitches);
+    }
+    if (this.isSet(formatters.combineStitches)) {
+      this.combineFormatter = new NumberFormatter(formatters.combineStitches);
+    }
+    if (this.isSet(formatters.groupInstructions)) {
+      this.groupFormatter = new GroupFormatter(formatters.groupInstructions);
+    }
+    if (this.isSet(formatters.listSeparator)) {
+      this.listFormatter = new ListFormatter(formatters.listSeparator);
+    }
+  }
+
+  isSet(string: string): boolean {
+    return string != undefined && string != null;
   }
 
   private calculateActions(to: number, from: number): Action[] {
