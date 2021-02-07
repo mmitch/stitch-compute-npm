@@ -47,7 +47,7 @@ Notes:
 Changes the output texts. `%d` will be replaced by a number, `%s` by a string. To the defaults can be set like this:
 
 ```typescript
-import { FormatterSet } from 'stitch-compute';
+import { StichCompute, FormatterSet } from 'stitch-compute';
 const stitchComputer = new StitchCompute();
 const formatters: FormatterSet = {
   keepStitches: 'K%d',
