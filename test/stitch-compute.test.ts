@@ -102,7 +102,7 @@ describe('StitchCompute', () => {
       expect(computer.adjustEvenly(12, 13)).to.equal('[keep 6], [add 1], [keep 6]');
       expect(computer.adjustEvenly(14, 7)).to.equal('{{ [combine 1] }} times 7');
     });
-    it('should not change undefined format strings', () => {
+    it('should not change undefined format strings (combination 1)', () => {
       const computer = new StitchCompute();
       const formatters: FormatterSet = {
         keepStitches: '[keep %d]',
@@ -114,6 +114,18 @@ describe('StitchCompute', () => {
 
       expect(computer.adjustEvenly(12, 13)).to.equal('[keep 6] A1 [keep 6]');
       expect(computer.adjustEvenly(14, 7)).to.equal('{{ [combine 1] }} times 7');
+    });
+    it('should not change undefined format strings (combination 2)', () => {
+      const computer = new StitchCompute();
+      const formatters: FormatterSet = {
+        addStitches: '[add %d]',
+        listSeparator: ', '
+      } as FormatterSet;
+
+      computer.setFormatters(formatters);
+
+      expect(computer.adjustEvenly(12, 13)).to.equal('K6, [add 1], K6');
+      expect(computer.adjustEvenly(14, 7)).to.equal('7x ( C1 )');
     });
   });
 });
