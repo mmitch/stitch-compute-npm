@@ -52,7 +52,7 @@ const stitchComputer = new StitchCompute();
 const formatters: FormatterSet = {
   keepStitches: 'K%d',
   addStitches: 'A%d',
-  combineStiches: 'C%d',
+  combineStitches: 'C%d',
   groupInstructions: '%dx ( %s )',
   listSeparator: ' '
 };
