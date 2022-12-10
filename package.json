@@ -64,6 +64,6 @@
     "all": true
   },
   "dependencies": {
-    "npm": "^7.18.1"
+    "npm": "^9.2.0"
   }
 }
