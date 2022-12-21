@@ -15,7 +15,7 @@
     "uri": "https://github.com/mmitch/stitch-compute-npm.git"
   },
   "bugs": "https://github.com/mmitch/stitch-compute-npm/issues",
-  "type": "module",
+  "type": "commonjs",
   "main": "lib/stitch-compute.js",
   "types": "lib/stitch-compute.d.ts",
   "files": [
