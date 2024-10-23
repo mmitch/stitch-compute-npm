@@ -27,6 +27,8 @@ jobs:
       - run: npm test
       - run: npm run lint
       - run: |
-          npm install codecov nyc -g
+          npm install nyc -g
           npm run coverage-ci
-          codecov
+      - uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: true
